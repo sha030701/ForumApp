@@ -36,4 +36,19 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    if (!db.Categories.Any())
+    {
+        db.Categories.AddRange(
+            new ForumApp.Models.Category { Name = "Athletics", Description = "Running, Jumping and throwing" },
+            new ForumApp.Models.Category { Name = "Swimming", Description = "All swimming events" },
+            new ForumApp.Models.Category { Name = "Gymnastics", Description = "Artistic and rhythmic gymnastics" },
+            new ForumApp.Models.Category { Name = "Football", Description = "Olympic foorball" }
+        );
+        db.SaveChanges();
+    }
+}
+
 app.Run();

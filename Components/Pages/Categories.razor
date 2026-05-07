@@ -1,0 +1,35 @@
+@page "/categories"
+@using ForumApp.Data
+@using ForumApp.Models
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext Db
+
+<h3>Olympic Games </h3>
+
+@if (categories == null)
+{
+    <p>Laddar...</p>
+}
+else
+{
+    <div>
+        @foreach (var category in categories)
+        {
+            <div>
+                <a href="/category/@category.Id">
+                    <h4>@category.Name</h4>
+                    <p>@category.Description</p>
+                </a>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<Category>? categories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await Db.Categories.ToListAsync();
+    }
+}
