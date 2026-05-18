@@ -1,0 +1,110 @@
+@page "/create-thread/{CategoryId}"
+@rendermode InteractiveServer
+@using ForumApp.Data
+@using ForumApp.Models
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.Authorization
+@inject ApplicationDbContext Db
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthStateProvider
+
+<h3>Create New Thread</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card p-4">
+
+            @* Titelfält *@
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input class="form-control" @bind="title" placeholder="Enter title..." />
+            </div>
+
+            @* Innehållsfält *@
+            <div class="mb-3">
+                <label class="form-label">Content</label>
+                <textarea class="form-control" @bind="content" placeholder="Enter content..." rows="5"></textarea>
+            </div>
+
+            @* Felmeddelande *@
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger">@errorMessage</div>
+            }
+
+            @* Knappar *@
+            <div>
+                <button class="btn btn-primary" @onclick="HandleSubmit">Post Thread</button>
+                <button class="btn btn-secondary ms-2" @onclick="GoBack">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    @* CategoryId hämtas från URL *@
+    [Parameter]
+    public string CategoryId { get; set; } = "";
+
+    @* Formulärvariabler *@
+    private string title = "";
+    private string content = "";
+    private string errorMessage = "";
+
+    private async Task HandleSubmit()
+    {
+        @* Validering - titel *@
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            errorMessage = "Title is required!";
+            return;
+        }
+
+        @* Validering - innehåll *@
+        if (string.IsNullOrWhiteSpace(content))
+        {
+            errorMessage = "Content is required!";
+            return;
+        }
+
+        @* Kolla om tråden redan finns *@
+        @* Kolla om en tråd med samma titel redan finns i samma kategori *@
+        var duplicate = await Db.ForumThreads
+         .AnyAsync(t => t.Title == title && t.CategoryId == int.Parse(CategoryId));
+
+        if (duplicate)
+        {
+          errorMessage = "Error: A thread with this title already exists!";
+          return;
+        }
+        @* Hämta inloggad användare *@
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        @* Hämta användarens ID *@
+        var userId = user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "anonymous";
+
+        @* Skapa och spara tråden *@
+        var thread = new ForumThread
+        {
+            Title = title,
+            Content = content,
+            CategoryId = int.Parse(CategoryId),
+            CreatedAt = DateTime.Now,
+            UserId = userId
+        };
+
+        Db.ForumThreads.Add(thread);
+        await Db.SaveChangesAsync();
+
+        @* Navigera tillbaka till kategorisidan *@
+        Navigation.NavigateTo($"/category/{CategoryId}");
+    }
+
+    @* Gå tillbaka utan att spara *@
+    private void GoBack()
+    {
+        Navigation.NavigateTo($"/category/{CategoryId}");
+    }
+}

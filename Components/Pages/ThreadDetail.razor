@@ -1,0 +1,181 @@
+@page "/thread/{ThreadId}"
+
+@rendermode InteractiveServer
+@using ForumApp.Data
+@using ForumApp.Models
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.Authorization
+
+@inject ApplicationDbContext Db
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthStateProvider
+
+<button class="btn btn-secondary mb-3" @onclick="GoBack">Back to Threads</button>
+
+@if (thread == null)
+{
+    <p>Laddar...</p>
+}
+else
+{
+     <div class="card p-4 mb-4">
+        <h3>@thread.Title</h3>
+        <p>@thread.Content</p>
+        <small class="text-muted">Posted: @thread.CreatedAt.ToString("yyyy-MM-dd")</small>
+        @if (isAdmin)
+        {
+            <div class="mt-3">
+              <button class="btn btn-warning btn-sm me-2" @onclick="EditThread">Edit</button>
+              <button class="btn btn-danger btn-sm" @onclick="DeleteThread">Delete</button>
+            </div>
+        }
+        </div>
+        <h5>Commnets</h5>
+        @if(isLoggedIn)
+        {
+            <div class="card p-3 mb-4">
+                <textarea class="form-control mb-2" row="3" @bind="newComment" placeholder="Write a comment..." ></textarea>
+                @if (!string.IsNullOrEmpty(commentError))
+                {
+                    <div class="alert alert-danger">@commentError</div>
+                }
+                <button class="btn btn-primary" @onclick="AddComment">Post Comment</button>
+
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">You must be logged in to post comments.</div>
+            <p><a href="/Account/Login">Log in</a> to post a comment.</p>
+
+        }
+        @if (comments == null ||!comments.Any())
+        {
+             <p>No comments yet. Be the first to comment!</p>
+        }
+        else
+        {
+            @foreach(var comment in comments)
+            {
+                <div class="card p-3 mb-2">
+                    <p>@comment.Content</p>
+                    <small class="text-muted">Commented: @comment.CreatedAt.ToString("yyyy-MM-dd")</small>
+
+                    @if (isAdmin)
+                     {
+                       <button class="btn btn-danger btn-sm mt-2" 
+                        @onclick="() => DeleteComment(comment.Id)">
+                        Delete
+                      </button>
+                     }
+                </div>
+            }
+
+        }
+       
+}
+@code {
+    [Parameter]
+    /// ThreadId hämtas från URL//
+    public string ThreadId { get; set; } = "";
+
+    /// tråden som visas på sidan//
+    private ForumThread? thread;
+ 
+    /// kommentarer i tråden//
+    private List<Comment>? comments;
+    
+    /// ny kommentar som användaren skriver//
+    private string newComment = "";
+    private string commentError = "";
+    /// användarens inloggningsstatus//
+
+    private bool isAdmin = false;
+    private bool isLoggedIn = false;
+    private string CurrentUserId = "";
+
+    // kör automatiskt när sidan laddas//
+    protected override async Task OnInitializedAsync()
+    {
+       
+
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        isLoggedIn = user.Identity?.IsAuthenticated ?? false;
+        isAdmin = user.IsInRole("Admin");
+        CurrentUserId = user.FindFirst( System .Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "";
+        thread = await Db.ForumThreads
+        .Include(t => t.Comments)
+        .FirstOrDefaultAsync(t => t.Id == int.Parse(ThreadId));
+        // spara komentar i listen//
+        if ( thread !=null)
+        {
+             comments = thread.Comments?.ToList() ?? new List<Comment>();
+        }
+
+    }
+     // läger till nya kommentar//
+    private async Task AddComment()
+    {
+        commentError = "";
+        if (string.IsNullOrWhiteSpace(newComment))
+        {
+            commentError = "Comment cannot be empty!";
+            return;
+        }
+        var comment = new Comment
+        {
+            Content = newComment, 
+            CreatedAt = DateTime.Now,
+            ForumThreadId = thread!.Id, // koppla kommentaren till tråden//
+            UserId = CurrentUserId // koppla kommentaren till användaren//
+        };
+        // sparar kommentaren i databasen// 
+        Db.Comments.Add(comment);
+        await Db.SaveChangesAsync();
+        comments!.Add(comment);
+        newComment = "";
+        commentError = "";
+    }
+    // bara admin kunna ta bort tråden//
+    private async Task DeleteThread()
+    {
+        if (thread != null)
+        {
+            Db.ForumThreads.Remove(thread);
+            await Db.SaveChangesAsync();
+            Navigation.NavigateTo($"/category/{thread.CategoryId}");
+        }
+    }
+     
+     // bara admin kunna ta bort kommentar//
+    private async Task DeleteComment(int commentId)
+    {
+        var comment = await Db.Comments.FindAsync(commentId);
+        if (comment != null)
+        {
+            Db.Comments.Remove(comment);
+            await Db.SaveChangesAsync();
+            comments!.Remove(comment);  
+           
+        }
+    }
+    private void EditThread()
+    {
+        Navigation.NavigateTo($"/edit-thread/{ThreadId}");
+    }
+    private void GoBack()
+    {
+        if (thread != null)
+        {
+            Navigation.NavigateTo($"/category/{thread.CategoryId}");
+        }
+        else
+        {
+            Navigation.NavigateTo("/categories");
+        }
+    }
+
+
+}
+
