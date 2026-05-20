@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");;
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -30,7 +31,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseAntiforgery();
+app.MapRazorPages(); // Behövs för Identity login/register sidor
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
@@ -51,4 +54,28 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+//skapa  admin  roll och användare
+
+using (var scope = app.Services.CreateAsyncScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+    if (!await roleManager.RoleExistsAsync("Admin"))
+    {
+        await roleManager.CreateAsync(new IdentityRole("Admin"));
+    }
+    var adminEmail = "Admin.account2@.com";
+    var adminUser = await userManager.FindByNameAsync(adminEmail);
+
+    if(adminUser == null)
+    {
+        adminUser = new IdentityUser {
+             UserName = adminEmail,
+             Email = adminEmail,
+             EmailConfirmed = true};
+             await userManager.CreateAsync(adminUser, "Admin123!");
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+    }
+}
 app.Run();

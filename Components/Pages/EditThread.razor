@@ -1,0 +1,125 @@
+@page "/edit-thread/{ThreadId}"
+@rendermode InteractiveServer
+@using ForumApp.Data
+@using ForumApp.Models
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.Authorization
+@inject ApplicationDbContext Db
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthStateProvider
+
+<h3>Edit Thread</h3>
+
+@if(thread == null)
+{
+    <p>Laddar...</p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card p-4">
+
+                @* Titelfält *@
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input class="form-control" @bind="title" />
+                </div>
+
+                @* Innehållsfält *@
+                <div class="mb-3">
+                    <label class="form-label">Content</label>
+                    <textarea class="form-control" rows="5" @bind="content"></textarea>
+                </div>
+
+                @* Felmeddelande *@
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <div class="alert alert-danger">@errorMessage</div>
+                }
+
+                @* Knappar *@
+                <div>
+                    <button class="btn btn-primary" @onclick="HandleSubmit">Save Changes</button>
+                    <button class="btn btn-secondary ms-2" @onclick="GoBack">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+}
+@code {
+    //ThreadId hämtas från URL
+  [Parameter]
+
+    public string ThreadId { get; set; } = "";  
+
+    private ForumThread? thread;
+    private string title = "";
+
+    private string content = "";
+    private string errorMessage = "";
+
+    //kör när sidan laddas//
+    protected override async Task OnInitializedAsync()
+    {
+        //kolla om användare admin eller inte//
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        // om inte admin, navigera bort från sidan//
+        if ( !user.IsInRole("Admin"))
+        {
+            Navigation.NavigateTo("/categories");
+            return;
+        }
+        // hämta thråden från databasen//
+        thread = await Db.ForumThreads
+        .FirstOrDefaultAsync(t => t.Id == int.Parse(ThreadId));
+      
+
+         //fyll i formuläret med trådens nuvarande data//
+        if (thread != null)
+        {
+            title = thread.Title;
+            content = thread.Content ?? "";
+        }
+    }
+    // spara ändringar//
+    private async Task HandleSubmit()
+    {
+        errorMessage = "";
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            errorMessage = "Title is required!";
+            return;
+        }
+        if (string .IsNullOrWhiteSpace(content))
+        {
+            errorMessage = "Content is required!";
+            return;
+        }
+       // uppdatera tråden //
+
+        if (thread != null)
+        {
+            thread.Title = title;
+            thread.Content = content;
+            thread.UpdatedAt = DateTime.Now;
+
+            await Db.SaveChangesAsync();
+
+            Navigation.NavigateTo($"/thread/{thread.Id}");
+        }
+    }
+    /// navigera tillbaka utan att spara ändringar//
+    private void GoBack()
+    {
+        
+         Navigation.NavigateTo($"/thread/{thread.Id}");
+       
+        
+    }
+
+}
