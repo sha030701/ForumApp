@@ -1,0 +1,46 @@
+@page "/login"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Components.Authorization
+@inject SignInManager<IdentityUser> SignInManager
+@inject NavigationManager Navigation
+
+<h4>Login</h4>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input class="form-control" @bind="email" placeholder="Enter email..." />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" @bind="password" placeholder="Enter password..." />
+            </div>
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger">@errorMessage</div>
+            }
+            <button class="btn btn-primary" @onclick="HandleLogin">Login</button>
+            <p class="mt-3">You don't have an account? <a href="/register">Register here</a>.</p>
+        </div>
+    </div>
+</div>
+@code {
+    private string email = "";
+    private string password = "";
+    private string errorMessage = "";
+
+    private async Task HandleLogin()
+    {
+        var result = await SignInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
+        if (result.Succeeded)
+        {
+            Navigation.NavigateTo("/categories", forceLoad: true);
+        }
+        else
+        {
+            errorMessage = "Invalid login attempt.";
+        }
+    }
+}
