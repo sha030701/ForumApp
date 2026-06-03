@@ -1,0 +1,76 @@
+@page "/login"
+
+@using ForumApp.Data
+@using Microsoft.AspNetCore.Identity
+@using ForumApp.Models.ViewModels
+
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject NavigationManager Navigation
+
+
+<div class="row">
+    <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
+        <EditForm Model="@Model" OnValidSubmit="Authenticate" FormName="LoginForm">
+            <DataAnnotationsValidator />
+            <div class="text-center mb-3">
+                <img src="avatar.png" style="width:80px;height:80px;border-radius:50%;" />
+                <h3>LOGIN</h3>
+            </div>
+
+            <div class="mb-3">
+                <label>User Name</label>
+                <InputText @bind-Value="Model.UserName" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label>Password</label>
+                <InputText @bind-Value="Model.Password"
+                           class="form-control"
+                           type="password" />
+            </div>
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger">@errorMessage</div>
+            }
+
+            <button class="btn btn-primary w-100" type="submit">
+                Login
+            </button>
+
+            <p class="mt-3 text-center">
+                You don't have an account?
+                <a href="/register">Register here</a>
+            </p>
+        </EditForm>
+
+   </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    public LoginViewModel Model { get; set; } = new();
+
+    private string? errorMessage;
+
+    private async Task Authenticate()
+    {
+        // Använder Identity SignInManager för att verifiera mot AspNetUsers-tabellen
+        var result = await SignInManager.PasswordSignInAsync(
+            Model.UserName!,
+            Model.Password!,
+            isPersistent: false,
+            lockoutOnFailure: false
+        );
+
+        if (result.Succeeded)
+        {
+            Navigation.NavigateTo("/", forceLoad: true);
+        }
+        else
+        {
+            errorMessage = "Invalid username or password.";
+        }
+    }
+}

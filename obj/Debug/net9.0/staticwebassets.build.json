@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TY9f6NThr9RJdDVmQkWZD4J9WF1MRevULx6pVgkayjs=",
+  "Hash": "EISfeS1axq1hpL+/LIVo3mamSllCkZPRCVDwJ799RPA=",
   "Source": "ForumApp",
   "BasePath": "_content/ForumApp",
   "Mode": "Default",
@@ -3692,6 +3692,27 @@
       "OriginalItemSpec": "wwwroot/app.css"
     },
     {
+      "Identity": "/Users/saniamaroof/ForumApp/wwwroot/avatar.png",
+      "SourceId": "ForumApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/saniamaroof/ForumApp/wwwroot/",
+      "BasePath": "_content/ForumApp",
+      "RelativePath": "avatar#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "6zvp1yyk2u",
+      "Integrity": "IvfMRM+6ivZclMuU4+JlsVzb9aHiAt/4XjHA78bgEAM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/avatar.png"
+    },
+    {
       "Identity": "/Users/saniamaroof/ForumApp/wwwroot/favicon.png",
       "SourceId": "ForumApp",
       "SourceType": "Discovered",
@@ -4933,6 +4954,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-sVqJu2q90LLmT7BmsbLu4VRQ5J/XF0EAIfd5QfY4EbU="
+        }
+      ]
+    },
+    {
+      "Route": "avatar.6zvp1yyk2u.png",
+      "AssetFile": "/Users/saniamaroof/ForumApp/wwwroot/avatar.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "24542"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IvfMRM+6ivZclMuU4+JlsVzb9aHiAt/4XjHA78bgEAM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 01 Jun 2026 10:44:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6zvp1yyk2u"
+        },
+        {
+          "Name": "label",
+          "Value": "avatar.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-IvfMRM+6ivZclMuU4+JlsVzb9aHiAt/4XjHA78bgEAM="
+        }
+      ]
+    },
+    {
+      "Route": "avatar.png",
+      "AssetFile": "/Users/saniamaroof/ForumApp/wwwroot/avatar.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "24542"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IvfMRM+6ivZclMuU4+JlsVzb9aHiAt/4XjHA78bgEAM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 01 Jun 2026 10:44:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-IvfMRM+6ivZclMuU4+JlsVzb9aHiAt/4XjHA78bgEAM="
         }
       ]
     },

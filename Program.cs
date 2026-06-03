@@ -4,13 +4,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");;
+//var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+  
+    builder.Services.AddAuthorization();
+    builder.Services.AddCascadingAuthenticationState();
+    builder.Services.AddRazorPages();
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=forum.db"));
 
  // Lägg till Identity-tjänster
@@ -28,6 +31,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -38,6 +42,7 @@ app.MapRazorPages(); // Behövs för Identity login/register sidor
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+   
 
 using (var scope = app.Services.CreateScope())
 {
@@ -65,8 +70,8 @@ using (var scope = app.Services.CreateAsyncScope())
     {
         await roleManager.CreateAsync(new IdentityRole("Admin"));
     }
-    var adminEmail = "Admin.account2@.com";
-    var adminUser = await userManager.FindByNameAsync(adminEmail);
+    var adminEmail = "admin@forumapp.com";
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
     if(adminUser == null)
     {

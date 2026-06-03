@@ -54,6 +54,9 @@ namespace ForumApp.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("UserAccountId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -68,9 +71,39 @@ namespace ForumApp.Migrations
 
                     b.HasIndex("ForumThreadId");
 
+                    b.HasIndex("UserAccountId");
+
                     b.HasIndex("parentCommentId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("ForumApp.Models.Entities.UserAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Password");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserAccounts");
                 });
 
             modelBuilder.Entity("ForumApp.Models.ForumThread", b =>
@@ -95,6 +128,9 @@ namespace ForumApp.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("UserAccountId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -102,6 +138,8 @@ namespace ForumApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserAccountId");
 
                     b.ToTable("ForumThreads");
                 });
@@ -310,6 +348,10 @@ namespace ForumApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ForumApp.Models.Entities.UserAccount", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("UserAccountId");
+
                     b.HasOne("ForumApp.Models.Comment", "ParentComment")
                         .WithMany("Replies")
                         .HasForeignKey("parentCommentId");
@@ -326,6 +368,10 @@ namespace ForumApp.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ForumApp.Models.Entities.UserAccount", null)
+                        .WithMany("ForumThreads")
+                        .HasForeignKey("UserAccountId");
 
                     b.Navigation("Category");
                 });
@@ -389,6 +435,13 @@ namespace ForumApp.Migrations
             modelBuilder.Entity("ForumApp.Models.Comment", b =>
                 {
                     b.Navigation("Replies");
+                });
+
+            modelBuilder.Entity("ForumApp.Models.Entities.UserAccount", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("ForumThreads");
                 });
 
             modelBuilder.Entity("ForumApp.Models.ForumThread", b =>
