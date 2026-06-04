@@ -1,4 +1,6 @@
 @page "/create-thread/{CategoryId}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize (Roles = "Admin")]
 @rendermode InteractiveServer
 @using ForumApp.Data
 @using ForumApp.Models

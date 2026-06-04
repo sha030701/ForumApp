@@ -1,4 +1,5 @@
 @page "/category/{CategoryId}"
+@using Microsoft.AspNetCore.Components.Authorization
 @using ForumApp.Data
 @using ForumApp.Models
 @using Microsoft.EntityFrameworkCore
@@ -8,7 +9,14 @@
 <h3>@categoryName</h3>
 
 @* Knapp för att skapa ny tråd i denna kategori *@
-<a href="/create-thread/@CategoryId" class = "btn btn-primary mb-3"> create-thread</a>
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <a href="/create-thread/@CategoryId" class="btn btn-primary mb-3">Create Thread</a>
+    </Authorized>
+    <NotAuthorized>
+        <p class="text-muted fst-italic">Only admins can create threads.</p>
+    </NotAuthorized>
+</AuthorizeView>
 
 @if(threads == null)
 {

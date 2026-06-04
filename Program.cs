@@ -20,6 +20,13 @@ builder.Services.AddRazorComponents()
  builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
      .AddRoles<IdentityRole>()
      .AddEntityFrameworkStores<ApplicationDbContext>();
+  
+ builder.Services.ConfigureApplicationCookie(options =>
+ {
+     options.LoginPath = "/Login"; // Ange sökvägen till inloggningssidan
+     options.LogoutPath = "/Logout"; // Ange sökvägen till utloggningssidan
+     options.AccessDeniedPath = "/login"; // Ange sökvägen till sidan för åtkomst nekad
+ });
 
 var app = builder.Build();
 
