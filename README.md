@@ -26,7 +26,7 @@ användare registerar sig och loggar in sig sen kunna besöka categories sida oc
 Admin har nå att skapa tråder ta bort tråder, regigera och kan ta bort användaren komentar också 
 
 ### installation 
-git clone 
+git clone https://github.com/sha030701/ForumApp.git
 cd ForumApp
 dotnet run
 öppna webläsre på   http://localhost:5163
