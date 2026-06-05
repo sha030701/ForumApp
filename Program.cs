@@ -64,6 +64,31 @@ using (var scope = app.Services.CreateScope())
         );
         db.SaveChanges();
     }
+       // Seed testdata - trådar och kommentarer
+    if (!db.ForumThreads.Any())
+    {
+        db.ForumThreads.AddRange(
+            new ForumApp.Models.ForumThread { Title = "100m Sprint – Paris 2024", Content = "Discussion about the 100m sprint results in Paris 2024.", CategoryId = 1, CreatedAt = DateTime.Now.AddDays(-10), UserId = "admin" },
+            new ForumApp.Models.ForumThread { Title = "Long Jump Records", Content = "All time long jump records in Olympic history.", CategoryId = 1, CreatedAt = DateTime.Now.AddDays(-8), UserId = "admin" },
+            new ForumApp.Models.ForumThread { Title = "Michael Phelps Legacy", Content = "Discussing the greatest swimmer of all time.", CategoryId = 2, CreatedAt = DateTime.Now.AddDays(-7), UserId = "admin" },
+            new ForumApp.Models.ForumThread { Title = "4x100m Relay Results", Content = "Results and highlights from the relay races.", CategoryId = 2, CreatedAt = DateTime.Now.AddDays(-5), UserId = "admin" },
+            new ForumApp.Models.ForumThread { Title = "Artistic Gymnastics Highlights", Content = "Best moments from artistic gymnastics in Paris 2024.", CategoryId = 3, CreatedAt = DateTime.Now.AddDays(-6), UserId = "admin" },
+            new ForumApp.Models.ForumThread { Title = "Olympic Football Final", Content = "Recap of the Olympic football final match.", CategoryId = 4, CreatedAt = DateTime.Now.AddDays(-3), UserId = "admin" }
+        );
+        db.SaveChanges();
+
+
+        var threads = db.ForumThreads.ToList();
+        db.Comments.AddRange(
+            new ForumApp.Models.Comment { Content = "Amazing race! The world record was incredible.", ForumThreadId = threads[0].Id, CreatedAt = DateTime.Now.AddDays(-9), UserId = "admin" },
+            new ForumApp.Models.Comment { Content = "I cant believe how fast they ran!", ForumThreadId = threads[0].Id, CreatedAt = DateTime.Now.AddDays(-8), UserId = "admin" },
+            new ForumApp.Models.Comment { Content = "Anna is truly the GOAT of swimming.", ForumThreadId = threads[2].Id, CreatedAt = DateTime.Now.AddDays(-6), UserId = "admin" },
+            new ForumApp.Models.Comment { Content = "The relay team was absolutely brilliant.", ForumThreadId = threads[3].Id, CreatedAt = DateTime.Now.AddDays(-4), UserId = "admin" },
+            new ForumApp.Models.Comment { Content = "Gymnastics is so beautiful to watch.", ForumThreadId = threads[4].Id, CreatedAt = DateTime.Now.AddDays(-5), UserId = "admin" },
+            new ForumApp.Models.Comment { Content = "That goal in the final was unbelievable!", ForumThreadId = threads[5].Id, CreatedAt = DateTime.Now.AddDays(-2), UserId = "admin" }
+        );
+        db.SaveChanges();
+    }
 }
 
 //skapa  admin  roll och användare

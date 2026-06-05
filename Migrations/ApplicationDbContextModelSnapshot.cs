@@ -93,6 +93,11 @@ namespace ForumApp.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("Password");
 
+                    b.Property<string>("Role")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Role");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
 

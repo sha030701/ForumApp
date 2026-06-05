@@ -48,6 +48,18 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-aIfKWo7wWPaxjtVaosoqd8Kd4w\u002BN8QymPkjkdMt6yIA="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5758"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022aIfKWo7wWPaxjtVaosoqd8Kd4w\u002BN8QymPkjkdMt6yIA=\u0022"},{"Name":"Last-Modified","Value":"Tue, 05 May 2026 10:23:13 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ForumApp/ldwwcy1qhg8rgatxk2m1.252fnr8q1o.avif">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\ldwwcy1qhg8rgatxk2m1.avif'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"252fnr8q1o"},{"Name":"integrity","Value":"sha256-aoRM9\u002BDaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU="},{"Name":"label","Value":"_content/ForumApp/ldwwcy1qhg8rgatxk2m1.avif"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"167525"},{"Name":"Content-Type","Value":"application/octet-stream"},{"Name":"ETag","Value":"\u0022aoRM9\u002BDaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU=\u0022"},{"Name":"Last-Modified","Value":"Fri, 05 Jun 2026 09:12:01 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ForumApp/ldwwcy1qhg8rgatxk2m1.avif">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\ldwwcy1qhg8rgatxk2m1.avif'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-aoRM9\u002BDaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"167525"},{"Name":"Content-Type","Value":"application/octet-stream"},{"Name":"ETag","Value":"\u0022aoRM9\u002BDaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU=\u0022"},{"Name":"Last-Modified","Value":"Fri, 05 Jun 2026 09:12:01 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ForumApp/lib/bootstrap/dist/css/bootstrap-grid.bqjiyaj88i.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\bootstrap\dist\css\bootstrap-grid.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

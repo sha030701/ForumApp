@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets/favicon.png"
     },
     {
+      "Id": "/Users/saniamaroof/ForumApp/wwwroot/ldwwcy1qhg8rgatxk2m1.avif",
+      "PackagePath": "staticwebassets/ldwwcy1qhg8rgatxk2m1.avif"
+    },
+    {
       "Id": "/Users/saniamaroof/ForumApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
       "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.css"
     },

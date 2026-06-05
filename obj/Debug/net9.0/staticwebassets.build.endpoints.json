@@ -9294,6 +9294,88 @@
       ]
     },
     {
+      "Route": "ldwwcy1qhg8rgatxk2m1.252fnr8q1o.avif",
+      "AssetFile": "ldwwcy1qhg8rgatxk2m1.avif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "167525"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aoRM9+DaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 05 Jun 2026 09:12:01 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "252fnr8q1o"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-aoRM9+DaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU="
+        },
+        {
+          "Name": "label",
+          "Value": "ldwwcy1qhg8rgatxk2m1.avif"
+        }
+      ]
+    },
+    {
+      "Route": "ldwwcy1qhg8rgatxk2m1.avif",
+      "AssetFile": "ldwwcy1qhg8rgatxk2m1.avif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "167525"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aoRM9+DaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 05 Jun 2026 09:12:01 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-aoRM9+DaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU="
+        }
+      ]
+    },
+    {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.bqjiyaj88i.css",
       "AssetFile": "lib/bootstrap/dist/css/bootstrap-grid.css.gz",
       "Selectors": [

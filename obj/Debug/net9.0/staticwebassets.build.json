@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EISfeS1axq1hpL+/LIVo3mamSllCkZPRCVDwJ799RPA=",
+  "Hash": "qDFXgvowUUBpm6txONM7HXKDbJh+sx1BGR+TfOqiw54=",
   "Source": "ForumApp",
   "BasePath": "_content/ForumApp",
   "Mode": "Default",
@@ -3732,6 +3732,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/favicon.png"
+    },
+    {
+      "Identity": "/Users/saniamaroof/ForumApp/wwwroot/ldwwcy1qhg8rgatxk2m1.avif",
+      "SourceId": "ForumApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/saniamaroof/ForumApp/wwwroot/",
+      "BasePath": "_content/ForumApp",
+      "RelativePath": "ldwwcy1qhg8rgatxk2m1#[.{fingerprint}]?.avif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "252fnr8q1o",
+      "Integrity": "aoRM9+DaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/ldwwcy1qhg8rgatxk2m1.avif"
     },
     {
       "Identity": "/Users/saniamaroof/ForumApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
@@ -14356,6 +14377,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo="
+        }
+      ]
+    },
+    {
+      "Route": "ldwwcy1qhg8rgatxk2m1.252fnr8q1o.avif",
+      "AssetFile": "/Users/saniamaroof/ForumApp/wwwroot/ldwwcy1qhg8rgatxk2m1.avif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "167525"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aoRM9+DaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 05 Jun 2026 09:12:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "252fnr8q1o"
+        },
+        {
+          "Name": "label",
+          "Value": "ldwwcy1qhg8rgatxk2m1.avif"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-aoRM9+DaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU="
+        }
+      ]
+    },
+    {
+      "Route": "ldwwcy1qhg8rgatxk2m1.avif",
+      "AssetFile": "/Users/saniamaroof/ForumApp/wwwroot/ldwwcy1qhg8rgatxk2m1.avif",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "167525"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/octet-stream"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aoRM9+DaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 05 Jun 2026 09:12:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-aoRM9+DaJfGtkH6o8Bd//kM13UjxZ7L5yStDARbbwRU="
         }
       ]
     },
